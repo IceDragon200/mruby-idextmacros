@@ -14,53 +14,9 @@
 
 #include <mruby.h>
 #include <mruby/data.h>
-#include <memory.h>
-
-inline static unsigned char
-extmrb_clamp_ubyte(int num)
-{
-	return num < 0 ? 0 : (num > 255 ? 255 : num);
-}
-
-inline static signed char
-extmrb_clamp_sbyte(int num)
-{
-	return num < -128 ? -128 : (num > 127 ? 127 : num);
-}
-
-inline static unsigned short
-extmrb_clamp_ushort(int num)
-{
-	return num < 0 ? 0 : (num > 0xFFFF ? 0xFFFF : num);
-}
-
-inline static signed short
-extmrb_clamp_sshort(int num)
-{
-	return num < -0x8000 ? -0x8000 : (num > 0x7FFF ? 0x7FFF : num);
-}
-
-inline static void
-extmrb_data_cleanup(mrb_state *mrb, mrb_value self, void (*dfree)(mrb_state *mrb, void*)) {
-	void *ptr = DATA_PTR(self);
-	if (ptr) {
-		dfree(mrb, ptr);
-		DATA_PTR(self) = NULL;
-		DATA_TYPE(self) = NULL;
-	}
-}
-
-inline static void*
-extmrb_malloc_set(mrb_state *mrb, int v, size_t size) {
-	void *ptr = mrb_malloc(mrb, size);
-	memset(ptr, v, size);
-	return ptr;
-}
-
-inline static void*
-extmrb_malloc_setzero(mrb_state *mrb, size_t size) {
-	return extmrb_malloc_set(mrb, 0, size);
-}
+#include "extmrb/helpers/numeric.h"
+#include "extmrb/helpers/memory.h"
+#include "extmrb/helpers/data.h"
 
 #define DEF_MRB_FUNC_HEAD(_mrb_name_) static mrb_value _mrb_name_(mrb_state *mrb, mrb_value self)
 
