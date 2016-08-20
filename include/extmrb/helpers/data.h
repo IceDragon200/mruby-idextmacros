@@ -1,5 +1,5 @@
-#ifndef EXTMRB_HELPERS_MEMORY_H
-#define EXTMRB_HELPERS_MEMORY_H
+#ifndef EXTMRB_HELPERS_DATA_H
+#define EXTMRB_HELPERS_DATA_H
 
 #include <mruby.h>
 #include <mruby/data.h>
